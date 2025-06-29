@@ -74,6 +74,9 @@ st.markdown("""
         border-radius: 10px;
         padding: 10px;
     }
+    label, .stTextArea label, .stTextInput label {
+        color: #66ffff !important;
+    }
     </style>
     <h1>🦇 Batcave Wayne Credits System</h1>
 """, unsafe_allow_html=True)
@@ -106,17 +109,20 @@ if st.session_state.bruce_journaled:
         reward_text = st.text_input("Describe your custom reward (e.g., Read comic, Take nap, etc.)")
 
     if st.button("🕵️ Ask Alfred to Verify"):
-        with st.spinner("Alfred is reviewing your proof..."):
-            query = f"Master Wayne has completed the task: {task}. Proof: {proof if proof else '[file uploaded]'} — Is this valid?"
-            alfred_reply = get_alfred_response(query)
-            st.success(f"🧠 Alfred: {alfred_reply}")
-            if any(x in alfred_reply.lower() for x in ["approved", "valid", "verified", "meets"]):
-                st.session_state.xp += 20
-                save_xp(st.session_state.xp)
-                st.balloons()
-                st.success(f"+20 Wayne Credits gained. Total Wayne Credits: {st.session_state.xp}")
-            else:
-                st.warning("No Wayne Credits awarded. Alfred requires better proof.")
+        if file is None:
+            st.error("Please upload a file as proof before asking Alfred to verify.")
+        else:
+            with st.spinner("Alfred is reviewing your proof..."):
+                query = f"Master Wayne has completed the task: {task}. Proof: {proof if proof else '[file uploaded]'} — Is this valid?"
+                alfred_reply = get_alfred_response(query)
+                st.success(f"🧠 Alfred: {alfred_reply}")
+                if any(x in alfred_reply.lower() for x in ["approved", "valid", "verified", "meets"]):
+                    st.session_state.xp += 20
+                    save_xp(st.session_state.xp)
+                    st.balloons()
+                    st.success(f"+20 Wayne Credits gained. Total Wayne Credits: {st.session_state.xp}")
+                else:
+                    st.warning("No Wayne Credits awarded. Alfred requires better proof.")
 
     st.markdown(f"### 🧬 Current Wayne Credits: {st.session_state.xp} / 100")
 
