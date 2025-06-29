@@ -35,6 +35,8 @@ if "start_time" not in st.session_state:
     st.session_state.start_time = None
 if "stopwatch_running" not in st.session_state:
     st.session_state.stopwatch_running = False
+if "joker_journaled" not in st.session_state:
+    st.session_state.joker_journaled = False
 
 # === JOURNAL SAVE FUNCTION ===
 def save_journal_entry(name, content):
@@ -61,31 +63,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === BATCAVE SOUNDTRACK ===
-st.markdown("""
-    <div style='margin-top:20px;'>
-        <style>
-        .bat-btn {
-            background-color: #0a0a0a;
-            border: 2px solid #00ffcc;
-            border-radius: 50%;
-            color: #00ffcc;
-            font-size: 20px;
-            padding: 15px 25px;
-            text-align: center;
-            transition: box-shadow 0.3s ease-in-out;
-        }
-        .bat-btn:hover {
-            box-shadow: 0 0 20px #00ffcc;
-        }
-        </style>
-        <form action="#">
-            <button class="bat-btn" onclick="document.getElementById('bat-audio').play(); return false;">🔊 Play Bat Signal</button>
-        </form>
-        <audio id="bat-audio">
-            <source src="https://firebasestorage.googleapis.com/v0/b/stuff-storage-999.appspot.com/o/batman2022.mp3?alt=media" type="audio/mp3">
-        </audio>
-    </div>
-""", unsafe_allow_html=True)
+with st.expander("🔊 Activate Bat Signal Theme"):
+    st.audio("https://firebasestorage.googleapis.com/v0/b/stuff-storage-999.appspot.com/o/batman2022.mp3?alt=media", format="audio/mp3")
 
 # === JOURNALING SECTION (Bruce) ===
 st.markdown("""
@@ -151,7 +130,7 @@ if st.session_state.bruce_journaled:
             time.sleep(timer_min * 60)
             st.success("⏰ Time’s up, Master Wayne!")
 
-    # === UMBRA JOURNALING ===
+    # === JOKER JOURNALING ===
     if st.session_state.xp >= 100:
         st.markdown("""
         ### Joker 🃏 Final Journal
