@@ -7,7 +7,7 @@ import json
 # === CONFIGURATION ===
 HF_API_TOKEN = st.secrets["HF_API_TOKEN"]  # Securely pulled from secrets
 ASSISTANT_ID = "68610acc741e47a5740c9c7b"
-HF_API_URL = "https://api-inference.huggingface.co/chat/completions"
+HF_API_URL = f"https://huggingface.co/api/assistants/{ASSISTANT_ID}/chat"
 XP_SAVE_FILE = "xp_state.json"
 JOURNAL_SAVE_FILE = "journal_log.txt"
 
@@ -46,15 +46,22 @@ def save_journal_entry(name, content):
 
 # === FUNCTIONS ===
 def get_alfred_response(user_message):
+    url = f"https://huggingface.co/api/assistants/{ASSISTANT_ID}/chat"
     headers = {
-        "Authorization": f"Bearer {HF_API_TOKEN}"
+        "Authorization": f"Bearer {HF_API_TOKEN}",
+        "Content-Type": "application/json"
     }
     data = {
-        "messages": [{"role": "user", "content": user_message}],
-        "assistant_id": ASSISTANT_ID
+        "inputs": {
+            "text": user_message
+        }
     }
-    response = requests.post(HF_API_URL, headers=headers, json=data)
-    return response.json()["choices"][0]["message"]["content"]
+    response = requests.post(url, headers=headers, json=data)
+
+    try:
+        return response.json()["generated_text"]
+    except Exception as e:
+        return f"Error fetching response from Alfred: {str(e)}"
 
 # === BATCAVE UI ===
 st.set_page_config(page_title="Batcave Wayne Credits Console", layout="centered")
