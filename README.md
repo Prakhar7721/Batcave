@@ -3,7 +3,7 @@
 
 Welcome to the **Batcave XP System** — a deeply immersive, productivity-focused journaling and task execution framework built with Streamlit. Inspired by the ethos of Batman, Carl Jung’s shadow self, and gamified discipline, this system is designed for individuals who want to **master themselves**, track meaningful progress, and hold themselves accountable using symbolic alter egos and AI validation.
 
----
+[🔗 Visit the Live App »](https://thebatcave.streamlit.app/)
 
 ## 🎯 Purpose
 
