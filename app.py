@@ -61,29 +61,22 @@ st.set_page_config(page_title="Batcave Wayne Credits Console", layout="centered"
 st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://i.imgur.com/nFgkMjf.jpeg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        background-color: #0a0a0a;
+        color: #00ffcc;
     }
     h1 {
         color: #00ffcc;
+        text-align: center;
+    }
+    .stButton>button {
+        background-color: #1a1a1a;
+        color: #00ffcc;
+        border-radius: 10px;
+        padding: 10px;
     }
     </style>
-    <h1 style='color:#00ffcc;'>🦇 Batcave Wayne Credits System</h1>
+    <h1>🦇 Batcave Wayne Credits System</h1>
 """, unsafe_allow_html=True)
-
-# === BATCAVE SOUNDTRACK ===
-st.markdown("""
-<div style='text-align: center;'>
-    <img src='https://media.tenor.com/d3IGg7NKr84AAAAC/batman-signal.gif' width='300' style='margin-bottom:10px;'>
-    <br>
-</div>
-""", unsafe_allow_html=True)
-
-with st.expander("🔊 Activate Bat Signal Theme"):
-    st.markdown("Click play to unleash the Gotham night.")
-    st.audio("https://filebin.net/2c3ne765vfkh5y4v/batman2022.mp3", format="audio/mp3")
 
 # === JOURNALING SECTION (Bruce) ===
 st.markdown("""
@@ -177,17 +170,4 @@ if st.session_state.bruce_journaled:
     elif st.session_state.xp >= 20:
         st.info("🟨 10-minute video unlocked.")
     else:
-        st.error("🔒 Keep grinding, Master Wayne.")
-
-# === STYLING ===
-st.markdown("""
-    <style>
-    .stButton>button {
-        background-color: #1a1a1a;
-        color: #00ffcc;
-        border-radius: 10px;
-        padding: 10px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
+        st.error("🔒 Keep grinding, Master Wayne!")
