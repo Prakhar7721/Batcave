@@ -5,7 +5,7 @@ import os
 import json
 
 # === CONFIGURATION ===
-_auth_token = st.secrets["HF_API_TOKEN"]  # Securely pulled from secrets
+HF_API_TOKEN = st.secrets["HF_API_TOKEN"]  # Securely pulled from secrets
 ASSISTANT_ID = "68610acc741e47a5740c9c7b"
 HF_API_URL = "https://api-inference.huggingface.co/chat/completions"
 XP_SAVE_FILE = "xp_state.json"
@@ -45,7 +45,7 @@ def save_journal_entry(name, content):
 # === FUNCTIONS ===
 def get_alfred_response(user_message):
     headers = {
-        "Authorization": f"Bearer {_auth_token}"
+        "Authorization": f"Bearer {HF_API_TOKEN}"
     }
     data = {
         "messages": [{"role": "user", "content": user_message}],
@@ -58,9 +58,33 @@ def get_alfred_response(user_message):
 st.set_page_config(page_title="Batcave XP Console", layout="centered")
 st.markdown("""
     <h1 style='color:#00ffcc;'>🦇 Batcave XP System</h1>
-    <audio autoplay hidden>
-      <source src="https://firebasestorage.googleapis.com/v0/b/stuff-storage-999.appspot.com/o/batman2022.mp3?alt=media" type="audio/mp3">
-    </audio>
+""", unsafe_allow_html=True)
+
+# === BATCAVE SOUNDTRACK ===
+st.markdown("""
+    <div style='margin-top:20px;'>
+        <style>
+        .bat-btn {
+            background-color: #0a0a0a;
+            border: 2px solid #00ffcc;
+            border-radius: 50%;
+            color: #00ffcc;
+            font-size: 20px;
+            padding: 15px 25px;
+            text-align: center;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .bat-btn:hover {
+            box-shadow: 0 0 20px #00ffcc;
+        }
+        </style>
+        <form action="#">
+            <button class="bat-btn" onclick="document.getElementById('bat-audio').play(); return false;">🔊 Play Bat Signal</button>
+        </form>
+        <audio id="bat-audio">
+            <source src="https://firebasestorage.googleapis.com/v0/b/stuff-storage-999.appspot.com/o/batman2022.mp3?alt=media" type="audio/mp3">
+        </audio>
+    </div>
 """, unsafe_allow_html=True)
 
 # === JOURNALING SECTION (Bruce) ===
