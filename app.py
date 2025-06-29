@@ -64,7 +64,7 @@ st.markdown("""
 
 # === BATCAVE SOUNDTRACK ===
 with st.expander("🔊 Activate Bat Signal Theme"):
-    st.audio("https://firebasestorage.googleapis.com/v0/b/stuff-storage-999.appspot.com/o/batman2022.mp3?alt=media", format="audio/mp3")
+    st.audio("https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg", format="audio/ogg")
 
 # === JOURNALING SECTION (Bruce) ===
 st.markdown("""
